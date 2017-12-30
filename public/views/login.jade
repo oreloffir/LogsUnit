@@ -1,0 +1,48 @@
+doctype html
+html
+    head
+        title= title
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        script(src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js")
+        script(src="./vendor/jquery/jquery.min.js")
+        script(src="./js/front.js")
+        link(rel='stylesheet', href='./css/style.css')
+        link(rel='stylesheet', href='./vendor/bootstrap/css/bootstrap.css')
+
+
+    body
+        .page.login-page
+            .container.d-flex.align-items-center
+                .form-holder.has-shadow
+                    .row
+                        <!-- Logo & Information Panel-->
+                        .col-lg-6
+                            .info.d-flex.align-items-center
+                                .content
+                                    .logo
+                                        h1 Dashboard
+                                        h3 LogsUnit
+                        <!-- Form Panel    -->
+                        .col-lg-6.bg-white
+                            .form.d-flex.align-items-center
+                                .content
+                                    form.login-form.bg-white(method='POST')
+                                        .form-group
+                                            input.input-material#login-email(type='text' name='email' required)
+                                            label.label-material(for='login-email') Email Address
+                                        .form-group
+                                            input.input-material#login-password(type='password' name='password' required)
+                                            label.label-material(for='login-email') Password
+                                        input.btn.btn-primary#login(type='submit' value='login')
+                                    if errors
+                                        each err in errors
+                                            .alert.alert-danger
+                                                strong Error
+                                                span #{err}
+
+
+        script(src="./vendor/jquery/jquery.min.js")
+        script(src='./vendor/jquery-validation/jquery.validate.js')
+        script(src='./vendor/jquery.cookie/jquery.cookie.js')
+        script(src='./vendor/bootstrap/js/bootstrap.min.js')
