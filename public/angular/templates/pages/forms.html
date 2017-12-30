@@ -1,0 +1,39 @@
+<div class="content-inner page">
+    <!-- Page Header-->
+    <header class="page-header">
+        <div class="container-fluid">
+            <h2 class="no-margin-bottom">Forms</h2>
+        </div>
+    </header>
+    <!-- Breadcrumb-->
+    <div class="breadcrumb-holder container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">Forms</li>
+        </ul>
+    </div>
+    <!-- Section forms-->
+    <section class="forms">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Basic Form-->
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h3 class="h4">Edit Auditing Form</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Choose your file/directory and edit the auditing properties.</p>
+                            <form>
+                                <label class="custom-file">
+                                    <input type="file" id="file" class="custom-file-input" ng-model="fileBrowse" ng-change="fileBrowse($event)">
+                                    <span class="custom-file-control"></span>
+                                </label>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

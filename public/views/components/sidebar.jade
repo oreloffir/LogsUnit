@@ -1,0 +1,28 @@
+.page-cntent.d-flex.align-items-strech
+    nav.side-navbar.shrinked
+        // Sidebar Header
+        .sidebar-header.d-flex.align-items-center
+            .avatar
+                img.img-fluid.rounded-circle(src='images/avatar-1.jpg', alt='...')
+            .title
+                h1.h4 {{Name}}
+                p {{Role}}
+        // Sidebar Navigation Menus
+        span.heading Main
+        ul.list-unstyled
+            li(ng-class="{active:activePage=='home'}")
+                a(href='/' ng-click="setCurrentPage('home')")
+                    i.icon-homeHome
+            li(ng-class="{active:activePage=='tables'}")
+                a(href='/tables' ng-click="setCurrentPage('tables')")
+                    i.icon-gridTables
+            li(ng-class="{active:activePage=='charts'}")
+                a(ng-click="setCurrentPage('charts')")
+                    i.fa.fa-bar-chartCharts
+            li(ng-class="{active:currentPage=='forms'}")
+                a(href='/forms' ng-click="setCurrentPage('forms')")
+                    i.icon-padnoteForms
+            li(ng-class="{active:currentPage=='login'}")
+                a(ng-click="setCurrentPage('login')")
+                    i.icon-interface-windowsLogin Page
+    div(ng-view)
