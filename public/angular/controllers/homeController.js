@@ -1,4 +1,4 @@
-app.controller("homeController", function($scope, $http){
+angular.module("main").controller("homeController", ["$scope", "$http", function($scope, $http){
 	console.log('homeController');
     $scope.activePage = 'home';
 
@@ -23,13 +23,13 @@ app.controller("homeController", function($scope, $http){
 							id: 'y-axis-1',
 							type: 'linear',
 							display: true,
-							position: 'left',
+							position: 'left'
 						}
 					]
 				},
 				legend: {
 					display: false
-				},
+				}
 			}
 		},
 
@@ -84,10 +84,10 @@ app.controller("homeController", function($scope, $http){
 			method: 'GET',
 			url: 'http://localhost:3000/api/logs/getLogsByMonth'
 		}).then(function (response){
-			console.log(response)
+			console.log(response);
 			response.data.logs.forEach(function (element) {
 				$scope.logsDataSets.logsForMonth[element._id-1] += element.count;
-			})
+			});
 			console.log($scope.logsDataSets.logsForMonth)
 		});
 	};
@@ -125,5 +125,5 @@ app.controller("homeController", function($scope, $http){
 		});
 	};
 
-	$scope.updateLogsCharts();
-});
+	//$scope.updateLogsCharts();
+}]);

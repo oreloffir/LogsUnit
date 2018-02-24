@@ -1,4 +1,4 @@
-app.controller("formsController", function($scope, $http){
+angular.module("main").controller("formsController", function($scope, $http){
     console.log("formsController");
     $scope.activePage = 'forms';
 
