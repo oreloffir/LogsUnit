@@ -1,77 +1,127 @@
 var app = angular.module("main", ["ngRoute","chart.js","ui.bootstrap"]);
+var routes =
+    {
+        '/': {
+            templateUrl: 'angular/pages/home.html',
+            controller: 'homeController',
+            requireLogin: true
+        },
+        '/login': {
+            templateUrl: 'angular/pages/login.html',
+            controller: 'indexController',
+            requireLogin: false
+        },
+        '/tables': {
+            templateUrl: 'angular/pages/tables.html',
+            controller: 'tablesController',
+            requireLogin: true
+        },
+        '/forms': {
+            templateUrl: 'angular/pages/forms.html',
+            controller: 'formsController',
+            requireLogin: true
+        }
+    };
 
-app.config(function ($routeProvider, $httpProvider, $locationProvider, ChartJsProvider) {
-	$httpProvider.defaults.withCredentials = true;
-	$locationProvider.html5Mode({
-		enabled: true,
-		requireBase: false
-	});
-	$routeProvider.when('/', {
-		templateUrl: 'angular/templates/pages/home.html',
-		controller: 'homeController'
-	}).when('/tables', {
-		templateUrl: 'angular/templates/pages/tables.html',
+app.config(["$routeProvider", "$httpProvider", "$locationProvider", function ($routeProvider, $httpProvider, $locationProvider) {
+
+    $httpProvider.defaults.withCredentials = true;
+
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+
+
+    $routeProvider
+        .when('/', {
+        templateUrl: 'angular/pages/home.html',
+        controller: 'homeController'
+        })
+        .when('/tables', {
+		templateUrl: 'angular/pages/tables.html',
 		controller: 'tablesController'
-	}).when('/forms', {
-        templateUrl: 'angular/templates/pages/forms.html',
+        })
+        .when('/forms', {
+        templateUrl: 'angular/pages/forms.html',
         controller: 'formsController'
-    })
-	//ChartJsProvider.setOptions({ colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
-});
+        })
 
-app.filter("timeago", function () {
-	//time: the time
-	//local: compared to what time? default: now
-	//raw: wheter you want in a format of "5 minutes ago", or "5 minutes"
-	return function (time, local, raw) {
-		if (!time) return "never";
+    //ChartJsProvider.setOptions({ colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
+}]);
 
-		if (!local) {
-			(local = Date.now())
-		}
+app.directive('ngModal', ['$uibModal', function ($uibModal) {
+    return {
+        restrict: 'A',
+        replace: true,
+        scope: false,
+        link: function postLink(scope, element, attrs) {
+            if (scope.modalInstance == undefined)
+                scope.modalInstance = {};
+            scope.modalInstance[attrs.visible] = null;
+            scope.$watch(attrs.visible, function (value) {
+                if (value == true)
+                {
+                    scope.modalInstance[attrs.visible] = $uibModal.open({
+                        animation: attrs.animation == 'false' ? false : true,
+                        templateUrl: attrs.template,
+                        size: attrs.size ? attrs.size : 'lg',
+                        backdrop: attrs.backdrop ? attrs.backdrop : true,
+                        backdropClass: attrs.backdropclass ? attrs.backdropclass : '',
+                        keyboard: attrs.keyboard == 'false' ? false : true,
+                        scope: scope
+                    });
+                    scope.modalInstance[attrs.visible].result.then(function () {
+                    }, function () {
+                        scope[attrs.visible] = false;
+                        scope.modalInstance[attrs.visible] = null;
+                    });
+                } else {
+                    if (scope.modalInstance[attrs.visible] != null){
+                        scope.modalInstance[attrs.visible].dismiss();
+                    }
+                }
+            });
+        }
+    };
+}]);
 
-		if (angular.isDate(time)) {
-			time = time.getTime();
-		} else if (typeof time === "string") {
-			time = new Date(time).getTime();
-		}
+app.directive('login', function ($uibModal) {
+    return{
+        restrict : 'EA',
+        templateUrl : './angular/pages/login.html',
+        replace : true,
+        scope: {
+            onLoginRequest: '&',
+            errors: '='
+        },
+        link : function ($scope) {
+            $scope.loginInfo = {};
+            // ------------------------------------------------------- //
+            // Transition Placeholders
+            // ------------------------------------------------------ //
+            $('input.input-material').on('focus', function () {
+                console.log("front script");
+                $(this).siblings('.label-material').addClass('active');
+            });
 
-		if (angular.isDate(local)) {
-			local = local.getTime();
-		}else if (typeof local === "string") {
-			local = new Date(local).getTime();
-		}
+            $('input.input-material').on('blur', function () {
+                $(this).siblings('.label-material').removeClass('active');
 
-		if (typeof time !== 'number' || typeof local !== 'number') {
-			return;
-		}
+                if ($(this).val() !== '') {
+                    $(this).siblings('.label-material').addClass('active');
+                } else {
+                    $(this).siblings('.label-material').removeClass('active');
+                }
+            });
 
-		var
-			offset = Math.abs((local - time) / 1000),
-			span = [],
-			MINUTE = 60,
-			HOUR = 3600,
-			DAY = 86400,
-			WEEK = 604800,
-			MONTH = 2629744,
-			YEAR = 31556926,
-			DECADE = 315569260;
-
-		if (offset <= MINUTE)              span = [ '', raw ? 'now' : 'less than a minute' ];
-		else if (offset < (MINUTE * 60))   span = [ Math.round(Math.abs(offset / MINUTE)), 'min' ];
-		else if (offset < (HOUR * 24))     span = [ Math.round(Math.abs(offset / HOUR)), 'hr' ];
-		else if (offset < (DAY * 7))       span = [ Math.round(Math.abs(offset / DAY)), 'day' ];
-		else if (offset < (WEEK * 52))     span = [ Math.round(Math.abs(offset / WEEK)), 'week' ];
-		else if (offset < (YEAR * 10))     span = [ Math.round(Math.abs(offset / YEAR)), 'year' ];
-		else if (offset < (DECADE * 100))  span = [ Math.round(Math.abs(offset / DECADE)), 'decade' ];
-		else                               span = [ '', 'a long time' ];
-
-		span[1] += (span[0] === 0 || span[0] > 1) ? 's' : '';
-		span = span.join(' ');
-
-		if (raw === true) {
-			return span;
-		}
-		return (time <= local) ? span + ' ago' : 'in ' + span;
-	}
+            // ------------------------------------------------------- //
+            // Functions
+            // ------------------------------------------------------ //
+            $scope.loginAction = function loginAction() {
+                console.log("login action" +$scope.loginInfo);
+                $scope.onLoginRequest({email: $scope.loginInfo.email, password: $scope.loginInfo.password})
+            }
+        }
+    };
 });

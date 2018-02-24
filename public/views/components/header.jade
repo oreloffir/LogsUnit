@@ -74,21 +74,21 @@ header.header
                             li
                                 a.dropdown-item.d-flex(rel='nofollow', href='')
                                     .msg-profile
-                                        img.img-fluid.rounded-circle(src='images/avatar-1.jpg', alt='...')
+                                        img.img-fluid.rounded-circle(src='images/profileImages/avatar-1.jpg', alt='...')
                                     .msg-body
                                         h3.h5 Jason Doe
                                         span Sent You Message
                             li
                                 a.dropdown-item.d-flex(rel='nofollow', href='')
                                     .msg-profile
-                                        img.img-fluid.rounded-circle(src='images/avatar-2.jpg', alt='...')
+                                        img.img-fluid.rounded-circle(src='images/profileImages/avatar-2.jpg', alt='...')
                                     .msg-body
                                         h3.h5 Frank Williams
                                         span Sent You Message
                             li
                                 a.dropdown-item.d-flex(rel='nofollow', href='')
                                     .msg-profile
-                                        img.img-fluid.rounded-circle(src='images/avatar-3.jpg', alt='...')
+                                        img.img-fluid.rounded-circle(src='images/profileImages/avatar-3.jpg', alt='...')
                                     .msg-body
                                         h3.h5 Ashley Wood
                                         span Sent You Message
@@ -97,6 +97,6 @@ header.header
                                     strong Read all messages
                     // Logout
                     li.nav-item
-                        a.nav-link.logout(href='login.html')
+                        a.nav-link.logout(ng-click="logout()")
                             Logout
                             i.fa.fa-sign-out

@@ -1,5 +1,5 @@
 var express         = require('express');
-var session 	    = require('express-session')
+var session 	    = require('express-session');
 var path            = require('path');
 var favicon         = require('serve-favicon');
 var logger          = require('morgan');
@@ -7,14 +7,18 @@ var cookieParser    = require('cookie-parser');
 var bodyParser      = require('body-parser');
 
 // Mongo schemas
-require('./server/models/User')
+require('./server/models/User');
+require('./server/models/Log');
 
 // Routes
-var index = require('./server/routes/index');
-var users = require('./server/routes/users');
+var index   = require('./server/routes/index');
+var users   = require('./server/routes/users');
+var logs    = require('./server/routes/logs');
+var tables  = require('./server/routes/tables');
 
 // Set express application
 var app = express();
+app.use(express.static(__dirname + '/public'));
 // view engine setup
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'jade');
@@ -33,8 +37,10 @@ app.use(session({
 }))
 
 // Set application routes
+app.use('/api/tables', tables);
 app.use('/', index);
 app.use('/users', users);
+app.use('/api/logs', logs);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,6 +1,7 @@
 /*global $, document, Chart, LINECHART, data, options, window*/
 $(document).ready(function () {
 
+
     'use strict';
 
     // ------------------------------------------------------- //
@@ -84,6 +85,7 @@ $(document).ready(function () {
     // Transition Placeholders
     // ------------------------------------------------------ //
     $('input.input-material').on('focus', function () {
+        console.log("front script");
         $(this).siblings('.label-material').addClass('active');
     });
 
