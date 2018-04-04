@@ -40,7 +40,4 @@ angular.module("main").controller("tablesController", function($scope, $http){
         });
     };
     $scope.updateLogsTable();
-
-
-
 });

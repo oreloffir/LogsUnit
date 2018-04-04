@@ -64,5 +64,5 @@ angular.module("main").controller("indexController", ["$scope", "$rootScope", "$
 
 	$scope.setCurrentPage = function (pageName) {
 		$scope.activePage = pageName;
-	}
+	};
 }]);

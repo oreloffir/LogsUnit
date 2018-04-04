@@ -16,6 +16,11 @@ var routes =
             controller: 'tablesController',
             requireLogin: true
         },
+        '/charts': {
+            templateUrl: 'angular/pages/forms.html',
+            controller: 'formsController',
+            requireLogin: true
+        },
         '/forms': {
             templateUrl: 'angular/pages/forms.html',
             controller: 'formsController',
@@ -35,17 +40,24 @@ app.config(["$routeProvider", "$httpProvider", "$locationProvider", function ($r
 
     $routeProvider
         .when('/', {
-        templateUrl: 'angular/pages/home.html',
-        controller: 'homeController'
+            templateUrl: 'angular/pages/home.html',
+            controller: 'homeController'
         })
         .when('/tables', {
-		templateUrl: 'angular/pages/tables.html',
-		controller: 'tablesController'
+            templateUrl: 'angular/pages/tables.html',
+            controller: 'tablesController'
+        })
+        .when('/charts', {
+            templateUrl: 'angular/pages/tables.html',
+            controller: 'tablesController'
         })
         .when('/forms', {
-        templateUrl: 'angular/pages/forms.html',
-        controller: 'formsController'
+            templateUrl: 'angular/pages/forms.html',
+            controller: 'formsController'
         })
+        .otherwise({
+            template : "<h1>None</h1><p>Nothing has been selected</p>"
+        });
 
     //ChartJsProvider.setOptions({ colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
 }]);
