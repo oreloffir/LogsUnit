@@ -1,119 +1,40 @@
-var express         = require('express');
-var router          = express.Router();
-var storageManager  = require('../managers/storage-manager')
-var validator       = require('../managers/validator');
+var express = require('express');
+var router = express.Router();
+var storageManager = require('../managers/storage-manager')
 
-
-
-router.post('/', function(req, res, next) {
-    var model = {errors: [] }
-
-    storageManager.addLog(req.body, function(err, log){
-        console.log("storageManager.addLog  Callback ");
-        if(err){
-            console.log("Callback Error: " + err);
-            model.errors.push("Error saving");
-            model.success = false;
-        }else{
-            console.log("Callback success: " + model.success);
-            model.success = true;
-            // create result log for client
-            var resLog = {};
-            resLog.eventId  = log.EventId;
-            resLog.computer = log.computer;
-            resLog.date     = log.timeago(log.TimeCreated);
-
-            console.log("Callback res: " + JSON.stringify(resLog));
-            model.response      = resLog;
-        }
-        validator.logAdded(model.response);
-        res.json(model)
-    })
-});
 
 router.get('/', function(req, res, next) {
 	console.log('logs GET request');
 	res.render('index', { title: 'Logs' });
 });
 
-router.get('/getLogsByMonth', function(req, res, next) {
-	console.log('logsForMonth GET request');
-	storageManager.getAggregateLogs("monthReport", null, function (err, logs) {
-        var model = {
-            logs: logs,
-            errors: err
-        };
-        if (err)
-            console.log('Home page GET logsForMonth request failed');
-        console.log('Home page GET logsForMonth request Logs ' + JSON.stringify(model));
-        res.json(model);
-    })
-});
 
-router.get('/getLogsByHour', function(req, res, next) {
-	console.log('getLogsByHour GET request');
-	storageManager.getAggregateLogs("hourReport", null, function (err, logs) {
-        var model = {
-            logs: logs,
-            errors: err,
-        }
-        if (err)
-            console.log('Home page GET logsForHour request failed');
-        console.log('Home page GET logsForHour request Logs ' + JSON.stringify(model));
-        res.json(model);
+router.post('/', function(req, res, next) {
+	var model = {errors: [] }
+	console.log("post")
+	// print to console
+	//console.log("Router Log Post: "+JSON.stringify(req.body, null, 4));
+	storageManager.addLog(req.body, function(err, log){
+		console.log("Callback")
+		if(err){
+			console.log("Callback Error: " + err)
+			model.errors.push("Error saving")
+			model.success = false
+		}else{
+			model.success = true
+			// create result log for client
+			var resLog = {}
+			resLog.eventId       = log.EventId
+			resLog.computer      = log.computer
+			resLog.date        = log.timeago(log.TimeCreated)
 
-    })
-});
-
-router.get('/getLogsByEventId', function(req, res, next) {
-	console.log('getLogsByEventId GET request');
-	storageManager.getAggregateLogs("eventIdReport", null, function (err, logs) {
-        var model = {
-            logs: logs,
-            errors: err,
-        }
-        if (err)
-            console.log('Home page GET getLogsByEventId request failed');
-        console.log('Home page GET getLogsByEventId request Logs ' + JSON.stringify(model));
-        res.json(model);
-
-    })
-});
-
-router.get('/get_logs', function(req, res, next) {
-	console.log('GET LOGS request');
-	var query = req.body.query;
-    var validParams = {
-        limit:   100,
-        sort:    -1,
-        start:   0
-    };
-	if(req.body.params){
-        params.keys().forEach(function (key) {
-            switch (key){
-                case(config.LIMIT):
-                    validParams.limit = params[key];
-                    break;
-                case(config.SORT):
-                    validParams.sort = params[key];
-                    break;
-            }
-        })
-
-    }
-	storageManager.getLogs(query, params, function (err, logs) {
-		var model = {
-			logs: logs,
-			errors: err,
-		};
-		if(err)
-			console.log('Home page GET logsForMonth request failed');
-		console.log('Home page GET logsForMonth request Logs '+ JSON.stringify(model));
-		res.json(model);
-
+			console.log(resLog)
+			model.response      = resLog;
+		}
+		console.log("Model: "+JSON.stringify(model, null, 4))
+		res.json(model)
 	})
+	// just call res.end(), or show as string on web
+	//res.send(JSON.stringify(req.body, null, 4));
 });
-
-
-
 module.exports = router;

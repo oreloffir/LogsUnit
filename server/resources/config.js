@@ -1,6 +1,13 @@
 var config = {};
 
-config.hours ={};
+config.page_tokens = {};
+config.page_tokens.home     = 1;
+config.page_tokens.tables   = 2;
+config.page_tokens.charts   = 3;
+config.page_tokens.forms    = 4;
+
+
+config.hours = {};
 config.hours._1_AM = 1;
 config.hours._2_AM = 2;
 config.hours._3_AM = 3;

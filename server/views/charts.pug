@@ -1,0 +1,86 @@
+extends layout
+
+
+block content
+    .content-inner
+        // Page Header
+        header.page-header
+            .container-fluid
+                h2.no-margin-bottom Charts
+        // Breadcrumb
+        .breadcrumb-holder.container-fluid
+            ul.breadcrumb
+                li.breadcrumb-item
+                    a(href='/') Home
+                |
+                li.breadcrumb-item.active Charts
+        |
+        section.tables
+            .container-fluid
+                .row
+                    .col-lg-12
+                        .card
+                            .card-close
+                                .dropdown
+                                    button#closeCard4.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                                        i.fa.fa-ellipsis-v
+                                    |
+                                    .dropdown-menu.dropdown-menu-right.has-shadow(aria-labelledby='closeCard4')
+                                        a.dropdown-item.remove(href='#')
+                                            i.fa.fa-times
+                                            | Close
+                                        a.dropdown-item.edit(href='#')
+                                            i.fa.fa-gear
+                                            | Edit
+                            |
+                            .card-header.d-flex.align-items-center
+                                h3.h4 Charts
+                            |
+                            .card-body
+                                table.table.table-striped.table-sm
+                                    thead
+                                        tr
+                                            th #
+                                            |
+                                            th Event Id
+                                            |
+                                            th Computer
+                                            |
+                                            th Time Created
+                                            |
+                                            th Ip Address
+                                            |
+                                            th Failure Reason
+                                            |
+                                            th Target User Name
+                                            |
+                                            th Subject User Name
+                                    |
+                                    tbody
+                                        if Logs
+                                            each log in Logs
+                                                tr
+                                                    th(scope='row') 1
+                                                    |
+                                                    td #{log.EventId}
+                                                    |
+                                                    td #{log.Computer}
+                                                    |
+                                                    td #{log.timeago(log.TimeCreated)}
+                                                    |
+                                                    td #{log.IpAddress}
+                                                    |
+                                                    td #{log.FailureReason}
+                                                    |
+                                                    td #{log.TargetUserName}
+                                                    |
+                                                    td #{log.SubjectUserName}
+block scripts
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="js/charts-home.js"></script>
+    <script src="js/front.js"></script>

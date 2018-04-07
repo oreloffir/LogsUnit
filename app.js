@@ -11,17 +11,17 @@ var bodyParser = require('body-parser');
 require('./server/model/Log')
 
 //Routes
-var index = require('./routes/index');
-var users = require('./routes/users');
-var logs = require('./routes/logs');
-var tables = require('./routes/tables');
-var charts = require('./routes/charts');
+var index = require('./server/routes/index');
+var users = require('./server/routes/users');
+var logs = require('./server/routes/logs');
+var tables = require('./server/routes/tables');
+var charts = require('./server/routes/charts');
 
 var app = express();
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
@@ -36,7 +36,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/logs', logs);
 app.use('/tables', tables);
-app.use('/charts', tables);
+app.use('/charts', charts);
 
 
 // catch 404 and forward to error handler
