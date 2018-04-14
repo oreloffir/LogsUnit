@@ -1,0 +1,45 @@
+extends layout
+
+block content
+    .page.login-page
+        .container.d-flex.align-items-center
+            .form-holder.has-shadow
+                .row
+                    // Logo & Information Panel
+                    .col-lg-6
+                        .info.d-flex.align-items-center
+                            .content
+                                .logo
+                                    h1 LogsUnit
+                                p Welcome to LogsUnit dashboard.
+                    // Form Panel
+                    .col-lg-6.bg-white
+                        .form.d-flex.align-items-center
+                            .content
+                                form(method='post', action='/users/register')
+                                    .form-group
+                                        label Name
+                                        input.form-control(type='text', placeholder='Name', name='name')
+                                    .form-group
+                                        label Username
+                                        input.form-control(type='text', placeholder='Username', name='username')
+                                    .form-group
+                                        label Email
+                                        input.form-control(type='email', placeholder='Email', name='email')
+                                    .form-group
+                                        label Password
+                                        input.form-control(type='password', placeholder='Password', name='password')
+                                    .form-group
+                                        label Confirm Password
+                                        input.form-control(type='password', placeholder='Password', name='password2')
+                                    button.btn.btn-default(type='submit') Submit
+                                    if errors
+                                        each err in errors
+                                            .alert.alert-danger
+                                                .strong #{err.msg}
+                                br
+                                small Already have an account?
+                                a.signup(href='/login') Login
+
+
+

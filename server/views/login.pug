@@ -1,0 +1,34 @@
+extends layout
+
+block content
+    .page.login-page
+        .container.d-flex.align-items-center
+            .form-holder.has-shadow
+                .row
+                    // Logo & Information Panel
+                    .col-lg-6
+                        .info.d-flex.align-items-center
+                            .content
+                                .logo
+                                    h1 LogsUnit
+                                p Welcome to LogsUnit dashboard.
+                    // Form Panel
+                    .col-lg-6.bg-white
+                        .form.d-flex.align-items-center
+                            .content
+                                form#login-form(method='post' action='/users/login')
+                                    .form-group
+                                        input#email.input-material(type='email', name='username', placeholder='Email', required='')
+                                    .form-group
+                                        input#password.input-material(type='password', name='password', placeholder='Password', required='')
+                                    input#login.btn.btn-primary(type='submit')
+                                    if errors
+                                        each err in errors
+                                            .alert.alert-danger
+                                                .strong #{err.msg}
+                                br
+                                small Do not have an account?
+                                a.signup(href='/users/register') Sign-up
+
+
+
