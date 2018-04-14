@@ -1,5 +1,7 @@
 var config = {};
 
+config.urlMongo = 'mongodb://localhost:27017/LogsUnitDB';
+
 config.page_tokens = {};
 config.page_tokens.home     = 1;
 config.page_tokens.tables   = 2;

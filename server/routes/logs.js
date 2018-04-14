@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var storageManager = require('../managers/storage-manager')
+var storageManager = require('../managers/storage-manager');
 
 
 router.get('/', function(req, res, next) {
@@ -10,31 +10,32 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
-	var model = {errors: [] }
-	console.log("post")
+	var model = {errors: [] };
+	console.log("post");
 	// print to console
 	//console.log("Router Log Post: "+JSON.stringify(req.body, null, 4));
 	storageManager.addLog(req.body, function(err, log){
-		console.log("Callback")
+		console.log("Callback");
 		if(err){
-			console.log("Callback Error: " + err)
-			model.errors.push("Error saving")
+			console.log("Callback Error: " + err);
+			model.errors.push("Error saving");
 			model.success = false
 		}else{
-			model.success = true
+			model.success = true;
 			// create result log for client
-			var resLog = {}
-			resLog.eventId       = log.EventId
-			resLog.computer      = log.computer
-			resLog.date        = log.timeago(log.TimeCreated)
+			var resLog = {};
+			resLog.eventId       = log.EventId;
+			resLog.computer      = log.computer;
+			resLog.date        = log.timeago(log.TimeCreated);
 
-			console.log(resLog)
+			console.log(resLog);
 			model.response      = resLog;
 		}
-		console.log("Model: "+JSON.stringify(model, null, 4))
+		console.log("Model: "+JSON.stringify(model, null, 4));
 		res.json(model)
 	})
 	// just call res.end(), or show as string on web
 	//res.send(JSON.stringify(req.body, null, 4));
 });
+
 module.exports = router;

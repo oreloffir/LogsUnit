@@ -2,9 +2,8 @@ var mongoose = require('mongoose');
 
 mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost:27017/LogsUnitDB', {server: { poolSize: 5 }});
-var conn = mongoose.connection;
 // import object schema fro mongoDB @see /model
-var logSchema 		    = mongoose.model('Log')
+var logSchema = mongoose.model('Log');
 
 
 var storageManager = {
@@ -17,14 +16,14 @@ var storageManager = {
 
 		var moreInfo = ['IpAddress','SubjectUserName','TargetUserName','FailureReason'];
 		data["moreInfo"].forEach(function(val, i) {
-			console.log("i ="+i+"data[i+1]="+data["moreInfo"][i+1])
+			console.log("i ="+i+"data[i+1]="+data["moreInfo"][i+1]);
 			if (moreInfo.indexOf(data["moreInfo"][i+1]) === -1)
-				data[val] = data["moreInfo"][i+1]
+				data[val] = data["moreInfo"][i+1];
 		});
 		console.log(JSON.stringify(data, null, 4));
 		console.log("-----1-----");
 
-		var log = new logSchema(data)
+		var log = new logSchema(data);
 		console.log(JSON.stringify(log, null, 4));
 		console.log("-----2-----");
 		log.save(callback)
@@ -37,6 +36,6 @@ var storageManager = {
 				callback(err, logs)
 			})
 	},
-}
+};
 
 module.exports = storageManager;
