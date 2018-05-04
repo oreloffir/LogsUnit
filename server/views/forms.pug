@@ -1,0 +1,48 @@
+extends layout
+
+block content
+    .content-inner
+        // Page Header
+        header.page-header
+            .container-fluid
+                h2.no-margin-bottom Charts
+        // Breadcrumb
+        .breadcrumb-holder.container-fluid
+            ul.breadcrumb
+                li.breadcrumb-item
+                    a(href='/') Home
+                |
+                li.breadcrumb-item.active Forms
+                |
+        // Form Section
+        section.dashboard-header
+            .container-fluid
+                .row
+                    form#login-form.col-lg-12(method='post' action='/forms')
+                        .form-group
+                            input(type='file', webkitdirectory='', directory='', multiple='')
+                        .form-group
+                            .checkbox
+                                label
+                                    input(type='checkbox', value='')
+                                    |  Full Control
+                        .form-group
+                            .checkbox
+                                label
+                                    input(type='checkbox', value='')
+                                    |  Read
+                        .form-group
+                            .checkbox
+                                label
+                                    input(type='checkbox', value='')
+                                    |  Write
+                        .form-group
+                            .checkbox
+                                label
+                                    input(type='checkbox', value='')
+                                    |  Execute
+                        input#login.btn.btn-primary(type='submit')
+                        if errors
+                            each err in errors
+                                .alert.alert-danger
+                                    .strong #{err.msg}

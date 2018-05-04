@@ -11,10 +11,12 @@ var express             = require('express');
     flash               = require('connect-flash');
     session             = require('express-session');
 
-
-
 // Mongo schemas
-require('./server/model/Log');
+require('./server/models/Log');
+require('./server/models/User');
+require('./server/models/RuleMap');
+require('./server/managers/validator');
+require('./server/managers/storage-manager');
 
 //Routes
 var index   = require('./server/routes/index');
@@ -23,8 +25,8 @@ var logs    = require('./server/routes/logs');
 var tables  = require('./server/routes/tables');
 var charts  = require('./server/routes/charts');
 
+var forms   = require('./server/routes/forms');
 var app = express();
-
 // express-validator
 app.use(expressValidator());
 
@@ -55,11 +57,12 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/logs', logs);
 app.use('/users', users);
 app.use('/', index);
-app.use('/logs', logs);
 app.use('/tables', tables);
 app.use('/charts', charts);
+app.use('/forms', forms);
 
 
 // catch 404 and forward to error handler

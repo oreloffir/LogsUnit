@@ -39,4 +39,8 @@ config.LIMIT    = 'limit';
 config.SORT     = 'sort';
 config.START     = 'start';
 
+config.periodType = {};
+config.periodType.between = 'BETWEEN';
+config.periodType.while = 'WHILE';
+
 module.exports = config;

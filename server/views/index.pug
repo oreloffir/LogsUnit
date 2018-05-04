@@ -119,14 +119,6 @@ block content
                             canvas#lineChartLogsTime
                     |
                     .chart.col-lg-3.col-12
-                        // Bar Chart
-                        .bar-chart.has-shadow.bg-white
-                            .title
-                                strong  Month Events
-                                br
-                                small Event per month
-                            |
-                            canvas#barChartMonthEvents
                         // Numbers
                         .statistic.d-flex.align-items-center.bg-white.has-shadow
                             .icon.bg-green
@@ -140,6 +132,14 @@ block content
         section.client.no-padding-top
             .container-fluid
                 .row
+                    // Bar Chart
+                    .col-lg-4
+                        .overdue.card
+                            .card-body
+                                h3  Month Events
+                                small Event per month
+                            |
+                            canvas#barChartMonthEvents
                     // Work Amount
                     .col-lg-4
                         .work-amount.card
@@ -149,7 +149,7 @@ block content
                                 |
                                 .chart.text-center
                                     .text
-                                        strong 542
+                                        strong.pieChartLogsCounterText 0
                                         br
                                         span Logs
                                     |
@@ -161,19 +161,12 @@ block content
                                 h3 Total Events
                                 small Number of each event id.
                                 |
-                                .number.text-center 542 Events
+                                .number.text-center.lineChartTotalEventText 0 Events
                                 |
                                 .chart
                                     canvas#lineChartTotalEvent
 
 
 block scripts
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script src="js/front.js"></script>
     script.
         chartsController.init();

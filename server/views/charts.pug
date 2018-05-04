@@ -1,5 +1,7 @@
 extends layout
 
+block headScripts
+    script(src='/js/chartsController.js')
 
 block content
     .content-inner
@@ -15,72 +17,91 @@ block content
                 |
                 li.breadcrumb-item.active Charts
         |
-        section.tables
+        // Dashboard Header Section
+        section.dashboard-header
             .container-fluid
                 .row
-                    .col-lg-12
-                        .card
-                            .card-close
-                                .dropdown
-                                    button#closeCard4.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                                        i.fa.fa-ellipsis-v
-                                    |
-                                    .dropdown-menu.dropdown-menu-right.has-shadow(aria-labelledby='closeCard4')
-                                        a.dropdown-item.remove(href='#')
-                                            i.fa.fa-times
-                                            | Close
-                                        a.dropdown-item.edit(href='#')
-                                            i.fa.fa-gear
-                                            | Edit
+                    // Statistics
+                    .statistics.col-lg-3.col-12
+                        .statistic.d-flex.align-items-center.bg-white.has-shadow
+                            .icon.bg-red
+                                i.fa.fa-tasks
                             |
-                            .card-header.d-flex.align-items-center
-                                h3.h4 Charts
+                            .text
+                                strong 234
+                                br
+                                small Applications
+                        |
+                        .statistic.d-flex.align-items-center.bg-white.has-shadow
+                            .icon.bg-green
+                                i.fa.fa-calendar-o
                             |
+                            .text
+                                strong 152
+                                br
+                                small Interviews
+                        |
+                        .statistic.d-flex.align-items-center.bg-white.has-shadow
+                            .icon.bg-orange
+                                i.fa.fa-paper-plane-o
+                            |
+                            .text
+                                strong 147
+                                br
+                                small Forwards
+                    // Line Chart
+                    .chart.col-lg-6.col-12
+                        .line-chart.bg-white.d-flex.align-items-center.justify-content-center.has-shadow
+                            canvas#lineChartLogsTime
+                    |
+                    .chart.col-lg-3.col-12
+                        // Numbers
+                        .statistic.d-flex.align-items-center.bg-white.has-shadow
+                            .icon.bg-green
+                                i.fa.fa-line-chart
+                            |
+                            .text
+                                strong 99.9%
+                                br
+                                small Success Rate
+        // Client Section
+        section.client.no-padding-top
+            .container-fluid
+                .row
+                    // Bar Chart
+                    .col-lg-4
+                        .overdue.card
                             .card-body
-                                table.table.table-striped.table-sm
-                                    thead
-                                        tr
-                                            th #
-                                            |
-                                            th Event Id
-                                            |
-                                            th Computer
-                                            |
-                                            th Time Created
-                                            |
-                                            th Ip Address
-                                            |
-                                            th Failure Reason
-                                            |
-                                            th Target User Name
-                                            |
-                                            th Subject User Name
+                                h3  Month Events
+                                small Event per month
+                            |
+                            canvas#barChartMonthEvents
+                    // Work Amount
+                    .col-lg-4
+                        .work-amount.card
+                            .card-body
+                                h3 Logs Counter
+                                small Number of each event id.
+                                |
+                                .chart.text-center
+                                    .text
+                                        strong.pieChartLogsCounterText 0
+                                        br
+                                        span Logs
                                     |
-                                    tbody
-                                        if Logs
-                                            each log in Logs
-                                                tr
-                                                    th(scope='row') 1
-                                                    |
-                                                    td #{log.EventId}
-                                                    |
-                                                    td #{log.Computer}
-                                                    |
-                                                    td #{log.timeago(log.TimeCreated)}
-                                                    |
-                                                    td #{log.IpAddress}
-                                                    |
-                                                    td #{log.FailureReason}
-                                                    |
-                                                    td #{log.TargetUserName}
-                                                    |
-                                                    td #{log.SubjectUserName}
+                                    canvas#pieChartLogsCounter
+                    // Total Overdue
+                    .col-lg-4
+                        .overdue.card
+                            .card-body
+                                h3 Total Events
+                                small Number of each event id.
+                                |
+                                .number.text-center.lineChartTotalEventText 0 Events
+                                |
+                                .chart
+                                    canvas#lineChartTotalEvent
+
 block scripts
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script src="js/charts-home.js"></script>
-    <script src="js/front.js"></script>
+    script.
+        chartsController.init();

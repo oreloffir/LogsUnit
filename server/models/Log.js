@@ -15,4 +15,4 @@ var LogSchema = new mongoose.Schema({
 LogSchema.methods.timeago = function(date) {
 	return timeago().format(date);
 };
-mongoose.model('Log', LogSchema)
+mongoose.model('Log', LogSchema);
