@@ -11,68 +11,85 @@ var express             = require('express');
     flash               = require('connect-flash');
     session             = require('express-session');
 
-// Mongo schemas
+/**
+ * MongoDB schemas represents the models of the system
+ */
 require('./server/models/Log');
 require('./server/models/User');
 require('./server/models/RuleMap');
 require('./server/managers/validator');
 require('./server/managers/storage-manager');
 
-//Routes
+/**
+ * The system routes
+ *
+ * @index  - the main route return the home page
+ * @users  - the users route return the login/Register page,
+ *           and control the login/register methods
+ * @logs   - the Api for the get/post logs in the system
+ * @tables - the tables route return the tables page
+ * @charts - the charts route return the charts page
+ * @forms  - the forms route return the forms page
+ *
+ */
 var index   = require('./server/routes/index');
 var users   = require('./server/routes/users');
 var logs    = require('./server/routes/logs');
 var tables  = require('./server/routes/tables');
 var charts  = require('./server/routes/charts');
-
 var forms   = require('./server/routes/forms');
+
 var app = express();
-// express-validator
 app.use(expressValidator());
 
-// view engine setup
+/**
+ * view engine setup - pug view engine
+ */
 app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+/**
+ * body parser - parse the requests
+ */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Set Static Folder
+/**
+ * Set Static Folder
+ */
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-// Express Session
+/**
+ * Express Session
+ */
 app.use(session({
     secret: 'secret',
     saveUninitialized: true,
     resave: true
 }));
-
-// Passport init
+/**
+ * Passport init
+ */
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+/**
+ * Set the path to the routes
+ */
+app.use('/forms', forms);
 app.use('/logs', logs);
 app.use('/users', users);
 app.use('/', index);
 app.use('/tables', tables);
 app.use('/charts', charts);
-app.use('/forms', forms);
 
-
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
-
-// error handler
+/**
+ * error handler
+ */
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;

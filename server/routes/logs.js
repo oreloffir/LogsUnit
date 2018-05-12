@@ -45,7 +45,8 @@ router.get('/groupBy', function(req, res, next){
     }
 
     storageManager.getLogsGrupeBy(query, function(err, logs) {
-        console.log("getLogsGrupeBy Error: %o", err)
+        if(err)
+            console.log("getLogsGrupeBy Error: %o", err);
         res.json(logs)
     });
 });
