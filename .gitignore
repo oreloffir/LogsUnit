@@ -39,3 +39,7 @@ Thumbs.db
 # Node Modules #
 ######################
 node_modules/
+Python36-32/
+scripts/.idea
+scripts/venv
+scripts/venv1

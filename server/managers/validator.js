@@ -83,29 +83,6 @@ var validator = {
                     break;
             }
 
-            // var params = {
-            //
-            //     // project: {
-            //     //     "EventId": 1,
-            //     //     "Computer": 1,
-            //     //     "TimeCreated": 1,
-            //     //     "IpAddress": 1,
-            //     //     "FailureReason": 1,
-            //     //     "TargetUserName": 1,
-            //     //     "SubjectUserName": 1,
-            //     //     "hour": {"$hour": "$TimeCreated"}
-            //     // },
-            //     // group: {
-            //     //     //"_id": "EventId",
-            //     //     //"count": {$sum: 1},
-            //     //     //"hour": "hour"
-            //     // },
-            //     // match: {
-            //     //     "EventId": ruleMap.EventId,
-            //     //     //"hour": {$gte: ruleMap.Period[0], $lte: ruleMap.Period[1]}
-            //     // }
-            // }
-
             storageManager.getAggregateLogs('LOGS AGRREGATIOM', params, function(err, logs){
                 console.log("Validate callback");
                 if(err){

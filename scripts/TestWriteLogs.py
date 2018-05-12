@@ -12,26 +12,55 @@ FailureReasons = {
     'SubjectUserName': ['null', 'DESKTOP-A7VD3H8']
 }
 
-for i in range(1000):
+def sendEventLogs():
+    for i in range(15):
 
-    EventId = random.choice(EventIds)
-    delta = datetime.timedelta(random.randrange(0, 10)*30, random.randrange(0, 60)*60*60,  random.randrange(0, 60)*60*60*60)
-    Time = (datetime.datetime.now() + delta).strftime("%Y-%m-%dT%H:%M:%S.000Z")
-    Computer = random.choice(Computers)
-    print(Time)
-    IpAddress = random.choice(FailureReasons['IpAddress'])
-    TargetUserName = random.choice(FailureReasons['TargetUserName'])
-    SubjectUserName = random.choice(FailureReasons['SubjectUserName'])
+        EventId = 6416
+        delta = datetime.timedelta(0, random.randrange(2*60, 15*60))
+        Time = (datetime.datetime.now() + delta ).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+        Computer = random.choice(Computers)
+        IpAddress = random.choice(FailureReasons['IpAddress'])
+        TargetUserName = random.choice(FailureReasons['TargetUserName'])
+        SubjectUserName = random.choice(FailureReasons['SubjectUserName'])
 
-    str = 'test.py --EventId {} --TimeCreated {} --Computer {} FailureReason {} IpAddress {} TargetUserName {} SubjectUserName {}'.format(
-        EventId,
-        Time,
-        Computer,
-        "FailRes",
-        IpAddress,
-        TargetUserName,
-        SubjectUserName)
+        str = 'test.py --EventId {} --TimeCreated {} --Computer {} FailureReason {} IpAddress {} TargetUserName {} SubjectUserName {}'.format(
+            EventId,
+            Time,
+            Computer,
+            "FailRes",
+            IpAddress,
+            TargetUserName,
+            SubjectUserName)
+
+        print(str)
+        os.system(str)
 
 
-    print(str)
-    os.system(str)
+
+def sendRandomLogs(num):
+    for i in range(num):
+
+        EventId = random.choice(EventIds)
+        delta = datetime.timedelta(random.randrange(0, 10)*30, random.randrange(0, 60)*60*60,  random.randrange(0, 60)*60*60*60)
+        Time = (datetime.datetime.now() + delta).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+        Computer = random.choice(Computers)
+        print(Time)
+        IpAddress = random.choice(FailureReasons['IpAddress'])
+        TargetUserName = random.choice(FailureReasons['TargetUserName'])
+        SubjectUserName = random.choice(FailureReasons['SubjectUserName'])
+
+        str = 'test.py --EventId {} --TimeCreated {} --Computer {} FailureReason {} IpAddress {} TargetUserName {} SubjectUserName {}'.format(
+            EventId,
+            Time,
+            Computer,
+            "FailRes",
+            IpAddress,
+            TargetUserName,
+            SubjectUserName)
+
+
+        print(str)
+        os.system(str)
+
+#sendRandomLogs(1000)
+sendEventLogs()

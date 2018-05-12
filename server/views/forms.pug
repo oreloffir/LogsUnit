@@ -5,7 +5,7 @@ block content
         // Page Header
         header.page-header
             .container-fluid
-                h2.no-margin-bottom Charts
+                h2.no-margin-bottom Forms
         // Breadcrumb
         .breadcrumb-holder.container-fluid
             ul.breadcrumb
@@ -18,31 +18,39 @@ block content
         section.dashboard-header
             .container-fluid
                 .row
-                    form#login-form.col-lg-12(method='post' action='/forms')
+                    form#audit-file-form.col-lg-12(method='post' action='/forms/audit-file')
                         .form-group
-                            input(type='file', webkitdirectory='', directory='', multiple='')
+                            input(type='file', name="fileName", id="fileUpload")
+                        .form-group
+                            .checkbox
+                                    input(type='text', name="filePath", id="filePath", value='', display='none')
+                                    |
                         .form-group
                             .checkbox
                                 label
-                                    input(type='checkbox', value='')
+                                    input.check(type='checkbox', name="audit[]", value='0')
                                     |  Full Control
                         .form-group
                             .checkbox
                                 label
-                                    input(type='checkbox', value='')
+                                    input.check(type='checkbox', name="audit[]", value='0')
                                     |  Read
                         .form-group
                             .checkbox
                                 label
-                                    input(type='checkbox', value='')
+                                    input.check(type='checkbox', name="audit[]", value='0')
                                     |  Write
                         .form-group
                             .checkbox
                                 label
-                                    input(type='checkbox', value='')
+                                    input.check(type='checkbox', name="audit[]", value='0')
                                     |  Execute
-                        input#login.btn.btn-primary(type='submit')
+                        input#audit-file.btn.btn-primary(type='submit')
                         if errors
                             each err in errors
                                 .alert.alert-danger
                                     .strong #{err.msg}
+
+block scripts
+    script.
+        formsController.init();
