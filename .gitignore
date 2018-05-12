@@ -38,6 +38,7 @@ Thumbs.db
 
 # Node Modules #
 ######################
+.idea/
 node_modules/
 Python36-32/
 scripts/.idea
